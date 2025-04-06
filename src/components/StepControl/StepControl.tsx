@@ -32,7 +32,7 @@ const StepControl: FC<StepControlProps> = ({
           <Icon24ChevronRight />
         </IconButton>
       ) : (
-        <Link to={"/"}>
+        <Link to={"/search"}>
           <IconButton mode="bezeled">
             <Icon20Select />
           </IconButton>

@@ -1,7 +1,5 @@
 import { create } from "zustand";
-
-type movieType = "ALL" | "FILM" | "TV_SHOW" | "TV_SERIES" | "MINI_SERIES";
-type orderByType = "RATING" | "YEAR" | "NUM_VOTE";
+import { movieType, orderByType } from "../models/IFilterParams";
 
 interface FiltersState {
   page: number;
