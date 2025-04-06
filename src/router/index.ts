@@ -3,6 +3,7 @@ import MainPage from "../pages/MainPage/MainPage";
 import CollectionPage from "../pages/CollectionPage/CollectionPage";
 import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import SearchResultPage from "../pages/SearchResultPage/SearchResultPage";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export interface IRoute {
   path: string;
@@ -15,4 +16,5 @@ export const appRoutes: IRoute[] = [
   { path: "/my", isIndex: false, component: CollectionPage },
   { path: "/movies", isIndex: false, component: MoviesPage },
   { path: "/search", isIndex: false, component: SearchResultPage },
+  { path: "/error", isIndex: false, component: ErrorPage },
 ];
