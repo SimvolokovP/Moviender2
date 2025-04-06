@@ -1,5 +1,11 @@
+import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
+
 const CollectionPage = () => {
-  return <div></div>;
+  return (
+    <AnimatedPage>
+      <div></div>
+    </AnimatedPage>
+  );
 };
 
 export default CollectionPage;

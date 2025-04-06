@@ -7,6 +7,7 @@ import MoviesLoader from "../../components/MoviesLoader/MoviesLoader";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import { Button } from "@telegram-apps/telegram-ui";
 import ResetMoviesList from "../../components/ResetMoviesList/ResetMoviesList";
+import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
 
 const SearchResultPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,26 +49,28 @@ const SearchResultPage = () => {
   }, [page]);
 
   return (
-    <div className="page">
-      {isLoading ? (
-        <MoviesLoader />
-      ) : (
-        <>
-          {targetMovies.length ? (
-            <MoviesList
-              movies={targetMovies}
-              setTargetMovies={setTargetMovies}
-            />
-          ) : (
-            <ResetMoviesList
-              disabled={page >= totalPages}
-              page={page}
-              setPage={setPage}
-            />
-          )}
-        </>
-      )}
-    </div>
+    <AnimatedPage>
+      <div className="page">
+        {isLoading ? (
+          <MoviesLoader />
+        ) : (
+          <>
+            {targetMovies.length ? (
+              <MoviesList
+                movies={targetMovies}
+                setTargetMovies={setTargetMovies}
+              />
+            ) : (
+              <ResetMoviesList
+                disabled={page >= totalPages}
+                page={page}
+                setPage={setPage}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </AnimatedPage>
   );
 };
 
