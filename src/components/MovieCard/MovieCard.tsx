@@ -35,7 +35,6 @@ const MovieCard: FC<MovieCardProps> = ({
 
     if (currentPos > 30) {
       addMovie(movie);
-      console.log(movie);
     }
   };
 
@@ -46,7 +45,7 @@ const MovieCard: FC<MovieCardProps> = ({
           <span className="uppercase text-base font-semibold text-[var(--tgui--accent_text_color)]">
             {movie?.nameRu}
           </span>
-          <DescrModal />
+          <DescrModal movieId={movie.kinopoiskId} />
         </div>
       )}
       <motion.div className="movie-card">

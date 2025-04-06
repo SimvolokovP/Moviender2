@@ -1,6 +1,7 @@
 import axios from "axios";
 import { movieType, orderByType } from "../models/IFilterParams";
 import { MoviesDto } from "./dto/movies.dto";
+import { IOneMovie } from "../models/IMovie";
 
 export class MoviesService {
   static async getMovies(
@@ -25,6 +26,21 @@ export class MoviesService {
             yearTo: 2024,
             page: page,
           },
+          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      throw new Error("Failed to fetch movies. Please try again later.");
+    }
+  }
+
+  static async getMovieById(id: number):Promise<IOneMovie> {
+    try {
+      const response = await axios.get(
+        `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}`,
+        {
           headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
         }
       );
