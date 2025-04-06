@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import { MoviesService } from "../../api/moviesService";
 import useFiltersStore from "../../store/useFiltersStore";
 import { IMovie } from "../../models/IMovie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MoviesLoader from "../../components/MoviesLoader/MoviesLoader";
+import MoviesList from "../../components/MoviesList/MoviesList";
+import { Button } from "@telegram-apps/telegram-ui";
+import ResetMoviesList from "../../components/ResetMoviesList/ResetMoviesList";
 
 const SearchResultPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [targetMovies, setTargetMovies] = useState<IMovie[]>([]);
-  const [total, setTotal] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const navigate = useNavigate();
 
-  const { country, genre, orderBy, page, type } = useFiltersStore();
+  const { country, genre, orderBy, page, type, setPage } = useFiltersStore();
 
   const fetchMovies = async () => {
     try {
@@ -27,7 +30,7 @@ const SearchResultPage = () => {
       );
 
       setTargetMovies(response.items);
-      setTotal(response.total);
+      setTotalPages(response.totalPages);
 
       console.log(response);
       console.log(response.total);
@@ -42,10 +45,29 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     fetchMovies();
-  }, []);
+  }, [page]);
 
   return (
-    <div className="page">{isLoading ? <MoviesLoader /> : <div>123</div>}</div>
+    <div className="page">
+      {isLoading ? (
+        <MoviesLoader />
+      ) : (
+        <>
+          {targetMovies.length ? (
+            <MoviesList
+              movies={targetMovies}
+              setTargetMovies={setTargetMovies}
+            />
+          ) : (
+            <ResetMoviesList
+              disabled={page >= totalPages}
+              page={page}
+              setPage={setPage}
+            />
+          )}
+        </>
+      )}
+    </div>
   );
 };
 
