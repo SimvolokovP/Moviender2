@@ -3,6 +3,8 @@ import { IMovie } from "../../models/IMovie";
 import { FC } from "react";
 import useLikedMoviesStore from "../../store/useLikedMovies";
 
+import DescrModal from "../DescrModal/DescrModal";
+
 interface MovieCardProps {
   movie: IMovie;
   targetMovies: IMovie[];
@@ -16,7 +18,6 @@ const MovieCard: FC<MovieCardProps> = ({
 }) => {
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
-
   const { addMovie } = useLikedMoviesStore();
 
   const isFront =
@@ -41,8 +42,11 @@ const MovieCard: FC<MovieCardProps> = ({
   return (
     <>
       {isFront && (
-        <div className="uppercase text-lg font-semibold text-[var(--tgui--accent_text_color)] text-center">
-          {movie?.nameRu}
+        <div className="flex items-center gap-2 text-center flex-wrap justify-center">
+          <span className="uppercase text-base font-semibold text-[var(--tgui--accent_text_color)]">
+            {movie?.nameRu}
+          </span>
+          <DescrModal />
         </div>
       )}
       <motion.div className="movie-card">
@@ -74,4 +78,5 @@ const MovieCard: FC<MovieCardProps> = ({
     </>
   );
 };
+
 export default MovieCard;
