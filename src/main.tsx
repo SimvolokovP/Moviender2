@@ -12,7 +12,7 @@ setBackgroundAsSecondary();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/Moviender2">
       <AppRoot>
         <App />
       </AppRoot>
