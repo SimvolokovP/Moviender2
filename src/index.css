@@ -42,3 +42,7 @@ body {
     transform: rotateY(360deg);
   }
 }
+
+.logo g path {
+  fill: var(--tgui--accent_text_color);
+}
