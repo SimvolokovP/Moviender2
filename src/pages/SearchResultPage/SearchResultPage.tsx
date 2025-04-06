@@ -3,6 +3,7 @@ import { MoviesService } from "../../api/moviesService";
 import useFiltersStore from "../../store/useFiltersStore";
 import { IMovie } from "../../models/IMovie";
 import { useNavigate } from "react-router-dom";
+import MoviesLoader from "../../components/MoviesLoader/MoviesLoader";
 
 const SearchResultPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,7 +44,9 @@ const SearchResultPage = () => {
     fetchMovies();
   }, []);
 
-  return <div></div>;
+  return (
+    <div className="page">{isLoading ? <MoviesLoader /> : <div>123</div>}</div>
+  );
 };
 
 export default SearchResultPage;
