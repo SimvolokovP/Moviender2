@@ -7,8 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRoot } from "@telegram-apps/telegram-ui";
 
 import { setBackgroundAsSecondary } from "./helpers/setBackgroundAsSecondary";
+import { init } from "@telegram-apps/sdk-react";
 
 setBackgroundAsSecondary();
+
+init();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

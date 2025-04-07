@@ -2,6 +2,7 @@ import {
   IconButton,
   Modal,
   Placeholder,
+  Spinner,
   VisuallyHidden,
 } from "@telegram-apps/telegram-ui";
 import { Icon20QuestionMark } from "@telegram-apps/telegram-ui/dist/icons/20/question_mark";
@@ -16,7 +17,7 @@ interface DescrModalProps {
 const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
   const [selectedMovie, setSelectedMovie] = useState<IOneMovie | null>(null);
 
-  const { fetchedMovie, error } = useFetchOneMovie(movieId);
+  const { fetchedMovie, error, isLoading } = useFetchOneMovie(movieId);
 
   useEffect(() => {
     fetchedMovie.then((m) => {
@@ -26,6 +27,7 @@ const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
 
   return (
     <Modal
+      title="1"
       aria-describedby={undefined}
       header={<Modal.Header />}
       trigger={
@@ -34,6 +36,12 @@ const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
         </IconButton>
       }
     >
+      {isLoading && (
+        <Placeholder>
+          <Spinner size="l" />
+        </Placeholder>
+      )}
+
       {error ? (
         <Placeholder
           description={"Sorry, please try again later"}
@@ -42,7 +50,7 @@ const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
       ) : (
         <Placeholder
           description={selectedMovie?.description}
-          header={movieId}
+          header={""}
         ></Placeholder>
       )}
     </Modal>

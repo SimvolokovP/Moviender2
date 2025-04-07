@@ -1,15 +1,18 @@
-import { Button, Divider } from "@telegram-apps/telegram-ui";
+import { Button } from "@telegram-apps/telegram-ui";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import animationData from "../../anim2.json";
 import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
+import useTg from "../../hooks/useTg";
 
 const MainPage = () => {
+  const { user } = useTg();
+
   return (
     <AnimatedPage>
       <div className="page">
         <div className="text-[var(--tgui--accent_text_color)] uppercase">
-          hi, user
+          hi, {user?.username}
         </div>
         {/* <Divider
           style={{ width: "50px", height: "5px", backgroundColor: "red" }}
