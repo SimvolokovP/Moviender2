@@ -1,7 +1,6 @@
 import {
   backButton,
   viewport,
-  themeParams,
   miniApp,
   initData,
   init as initSDK,
@@ -17,6 +16,7 @@ export function init(): void {
 
   backButton.mount();
   initData.restore();
+//   themeParams.mount();
   void viewport
     .mount()
     .catch((e) => {
@@ -33,5 +33,5 @@ export function init(): void {
       }
     });
 
-  themeParams.bindCssVars();
+//   themeParams.bindCssVars();
 }
