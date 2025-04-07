@@ -33,7 +33,5 @@ export function init(): void {
       }
     });
 
-  miniApp.bindCssVars();
-
   themeParams.bindCssVars();
 }
