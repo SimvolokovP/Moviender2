@@ -6,7 +6,9 @@ const useTg = () => {
 
   const user = lp.tgWebAppData?.user;
 
-  return { user };
+  const platofrm = lp.tgWebAppPlatform;
+
+  return { user, platofrm };
 };
 
 export default useTg;

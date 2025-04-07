@@ -6,9 +6,14 @@ import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
 import useTg from "../../hooks/useTg";
 import { getUsername } from "../../helpers/getUsername";
 import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavigation";
+import { useEffect } from "react";
 
 const MainPage = () => {
   const { user } = useTg();
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   return (
     <TelegramNavigation isMainPage={true}>

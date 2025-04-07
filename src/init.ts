@@ -7,9 +7,12 @@ import {
   swipeBehavior,
   settingsButton,
 } from "@telegram-apps/sdk-react";
+import { useNavigate } from "react-router-dom";
 
 export function init(): void {
   initSDK();
+
+  const navigate = useNavigate();
 
   if (!backButton.isSupported() || !miniApp.isSupported()) {
     throw new Error("ERR_NOT_SUPPORTED");
@@ -24,7 +27,7 @@ export function init(): void {
 
   settingsButton.mount();
   settingsButton.show();
-  settingsButton.onClick(() => console.log("settings btn"));
+  settingsButton.onClick(() => navigate("/settings"));
 
   void viewport
     .mount()
