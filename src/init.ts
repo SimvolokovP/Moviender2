@@ -16,8 +16,6 @@ export function init(): void {
   }
 
   backButton.mount();
-  miniApp.mount();
-  themeParams.mount();
   initData.restore();
   void viewport
     .mount()
