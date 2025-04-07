@@ -59,6 +59,8 @@ body {
   cursor: grab;
   border-radius: 8px;
   position: relative;
+  width: 252px;
+  height: 344px;
 }
 
 .movie-card:nth-child(2n + 1) {
@@ -67,4 +69,8 @@ body {
 
 .movie-card:nth-child(2n) {
   transform: rotate(6deg);
+}
+
+.tgui-97f2df57786b02dc:before {
+  background-color: #f4f4f7;
 }
