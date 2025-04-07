@@ -5,6 +5,7 @@ import {
   initData,
   init as initSDK,
   swipeBehavior,
+  settingsButton,
 } from "@telegram-apps/sdk-react";
 
 export function init(): void {
@@ -14,8 +15,17 @@ export function init(): void {
     throw new Error("ERR_NOT_SUPPORTED");
   }
 
+  if (!settingsButton.isSupported() || !miniApp.isSupported()) {
+    throw new Error("ERR_NOT_SUPPORTED");
+  }
+
   backButton.mount();
   initData.restore();
+
+  settingsButton.mount();
+  settingsButton.show();
+  settingsButton.onClick(() => console.log("settings btn"));
+
   void viewport
     .mount()
     .catch((e) => {
