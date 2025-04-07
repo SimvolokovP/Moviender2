@@ -1,4 +1,4 @@
-import { Button } from "@telegram-apps/telegram-ui";
+import { Button, Divider } from "@telegram-apps/telegram-ui";
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import animationData from "../../anim2.json";
@@ -11,6 +11,9 @@ const MainPage = () => {
         <div className="text-[var(--tgui--accent_text_color)] uppercase">
           hi, user
         </div>
+        {/* <Divider
+          style={{ width: "50px", height: "5px", backgroundColor: "red" }}
+        /> */}
         <div className="logo flex items-center gap-2 mb-4">
           <h3 className="uppercase text-3xl font-semibold text-[var(--tgui--accent_text_color)]">
             moviender

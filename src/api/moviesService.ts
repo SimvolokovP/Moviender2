@@ -26,7 +26,7 @@ export class MoviesService {
             yearTo: 2024,
             page: page,
           },
-          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
+          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY2 },
         }
       );
       return response.data;
@@ -36,12 +36,12 @@ export class MoviesService {
     }
   }
 
-  static async getMovieById(id: number):Promise<IOneMovie> {
+  static async getMovieById(id: number): Promise<IOneMovie> {
     try {
       const response = await axios.get(
         `https://kinopoiskapiunofficial.tech/api/v2.2/films/${id}`,
         {
-          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY },
+          headers: { "X-API-KEY": import.meta.env.VITE_API_KEY2 },
         }
       );
       return response.data;

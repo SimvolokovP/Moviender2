@@ -3,7 +3,7 @@ import { IMovie } from "../../models/IMovie";
 import { FC, useState } from "react";
 import useLikedMoviesStore from "../../store/useLikedMovies";
 import DescrModal from "../DescrModal/DescrModal";
-import { Skeleton } from "@telegram-apps/telegram-ui";
+import { Button, Skeleton } from "@telegram-apps/telegram-ui";
 
 interface MovieCardProps {
   movie: IMovie;
@@ -16,7 +16,7 @@ const MovieCard: FC<MovieCardProps> = ({
   targetMovies,
   setTargetMovies,
 }) => {
-  const [isImageLoaded, setImageLoaded] = useState(false); 
+  const [isImageLoaded, setImageLoaded] = useState(false);
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
   const { addMovie } = useLikedMoviesStore();
@@ -43,12 +43,20 @@ const MovieCard: FC<MovieCardProps> = ({
     <>
       {isFront && (
         <div className="flex items-center gap-2 text-center flex-wrap justify-center">
-          <span className="uppercase text-base font-semibold text-[var(--tgui--accent_text_color)]">
-            {movie?.nameRu}
-          </span>
+          <div className="uppercase text-base font-semibold text-[var(--tgui--accent_text_color)]">
+            {movie?.nameOriginal}
+          </div>
           <DescrModal movieId={movie.kinopoiskId} />
         </div>
       )}
+
+      {/* {isFront && (
+        <div className="absolute z-4 left-0 right-0 flex justify-between w-sm">
+          <Button>no</Button>
+          <Button>like</Button>
+        </div>
+      )} */}
+
       <motion.div className="movie-card">
         <Skeleton visible={!isImageLoaded} withoutAnimation={false}>
           <motion.img
@@ -57,6 +65,10 @@ const MovieCard: FC<MovieCardProps> = ({
             className="movie-image"
             style={{
               position: "relative",
+              border: isFront
+                ? "2px solid var(--tgui--accent_text_color)"
+                : "2px solid transparent",
+              borderRadius: "4px",
               zIndex: 3,
               width: "252px",
               height: "344px",
@@ -78,8 +90,8 @@ const MovieCard: FC<MovieCardProps> = ({
               right: 0,
             }}
             onDragEnd={handleDragEnd}
-            onLoad={() => setImageLoaded(true)} 
-            onError={() => setImageLoaded(true)} 
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageLoaded(true)}
           />
         </Skeleton>
       </motion.div>
