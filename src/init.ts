@@ -16,7 +16,6 @@ export function init(): void {
 
   backButton.mount();
   initData.restore();
-//   themeParams.mount();
   void viewport
     .mount()
     .catch((e) => {
@@ -32,6 +31,4 @@ export function init(): void {
         swipeBehavior.disableVertical();
       }
     });
-
-//   themeParams.bindCssVars();
 }
