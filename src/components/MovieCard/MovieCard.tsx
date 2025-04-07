@@ -3,7 +3,7 @@ import { IMovie } from "../../models/IMovie";
 import { FC, useState } from "react";
 import useLikedMoviesStore from "../../store/useLikedMovies";
 import DescrModal from "../DescrModal/DescrModal";
-import { Button, Skeleton } from "@telegram-apps/telegram-ui";
+import {  Skeleton } from "@telegram-apps/telegram-ui";
 
 interface MovieCardProps {
   movie: IMovie;

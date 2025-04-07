@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import animationData from "../../anim2.json";
 import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
 import useTg from "../../hooks/useTg";
+import { getUsername } from "../../helpers/getUsername";
 
 const MainPage = () => {
   const { user } = useTg();
@@ -11,9 +12,11 @@ const MainPage = () => {
   return (
     <AnimatedPage>
       <div className="page">
-        <div className="text-[var(--tgui--accent_text_color)] uppercase">
-          hi, {user?.username}
-        </div>
+        {user && (
+          <div className="text-[var(--tgui--accent_text_color)] uppercase">
+            hi, {getUsername(user)}
+          </div>
+        )}
         {/* <Divider
           style={{ width: "50px", height: "5px", backgroundColor: "red" }}
         /> */}

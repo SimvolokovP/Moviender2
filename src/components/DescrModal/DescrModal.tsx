@@ -3,7 +3,6 @@ import {
   Modal,
   Placeholder,
   Spinner,
-  VisuallyHidden,
 } from "@telegram-apps/telegram-ui";
 import { Icon20QuestionMark } from "@telegram-apps/telegram-ui/dist/icons/20/question_mark";
 import { FC, useEffect, useState } from "react";
