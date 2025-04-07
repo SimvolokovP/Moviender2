@@ -5,6 +5,7 @@ import useFiltersStore from "../../store/useFiltersStore";
 import StepControl from "../../components/StepControl/StepControl";
 import { Steps } from "@telegram-apps/telegram-ui";
 import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
+import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavigation";
 
 const MoviesPage = () => {
   const [step, setStep] = useState(1);
@@ -25,46 +26,48 @@ const MoviesPage = () => {
   }, []);
 
   return (
-    <AnimatedPage>
-      <div className="page">
-        <div className="w-full max-w-xs">
-          <Steps count={filterItems.length} progress={step} />
+    <TelegramNavigation isMainPage={false}>
+      <AnimatedPage>
+        <div className="page">
+          <div className="w-full max-w-xs">
+            <Steps count={filterItems.length} progress={step} />
+          </div>
+          {step === 1 && (
+            <FiltersTab
+              currentValue={genre}
+              filtersItems={filterItems[0]}
+              changeTab={(value) => setGenre(value)}
+            />
+          )}
+          {step === 2 && (
+            <FiltersTab
+              currentValue={country}
+              filtersItems={filterItems[1]}
+              changeTab={(value) => setCountry(value)}
+            />
+          )}
+          {step === 3 && (
+            <FiltersTab
+              currentValue={type}
+              filtersItems={filterItems[2]}
+              changeTab={(value) => setType(value)}
+            />
+          )}
+          {step === 4 && (
+            <FiltersTab
+              currentValue={orderBy}
+              filtersItems={filterItems[3]}
+              changeTab={(value) => setOrderBy(value)}
+            />
+          )}
+          <StepControl
+            currentStep={step}
+            setStep={setStep}
+            maxSteps={filterItems.length}
+          />
         </div>
-        {step === 1 && (
-          <FiltersTab
-            currentValue={genre}
-            filtersItems={filterItems[0]}
-            changeTab={(value) => setGenre(value)}
-          />
-        )}
-        {step === 2 && (
-          <FiltersTab
-            currentValue={country}
-            filtersItems={filterItems[1]}
-            changeTab={(value) => setCountry(value)}
-          />
-        )}
-        {step === 3 && (
-          <FiltersTab
-            currentValue={type}
-            filtersItems={filterItems[2]}
-            changeTab={(value) => setType(value)}
-          />
-        )}
-        {step === 4 && (
-          <FiltersTab
-            currentValue={orderBy}
-            filtersItems={filterItems[3]}
-            changeTab={(value) => setOrderBy(value)}
-          />
-        )}
-        <StepControl
-          currentStep={step}
-          setStep={setStep}
-          maxSteps={filterItems.length}
-        />
-      </div>
-    </AnimatedPage>
+      </AnimatedPage>
+    </TelegramNavigation>
   );
 };
 
