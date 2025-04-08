@@ -11,7 +11,7 @@ import { Icon24Cancel } from "@telegram-apps/telegram-ui/dist/icons/24/cancel";
 // import { popup } from "@telegram-apps/sdk-react";
 
 interface LikedMovieProps {
-  movie: IMovie;
+  movie: IMovie | null;
 }
 
 const LikedMovie: FC<LikedMovieProps> = ({ movie }) => {
@@ -19,55 +19,57 @@ const LikedMovie: FC<LikedMovieProps> = ({ movie }) => {
 
   const movieName = useMovieName(movie);
 
-//   const handleDelete = async () => {
-//     if (popup.open.isAvailable()) {
-//       // popup.isOpened() -> false
-//       const promise = popup.open({
-//         title: "Hello!",
-//         message: "Here is a test message.",
-//         buttons: [{ id: "my-id", type: "default", text: "Default text" }],
-//       });
-//       // popup.isOpened() -> true
-//       const buttonId = await promise;
-//       // popup.isOpened() -> false
-//     }
-//   };
+  //   const handleDelete = async () => {
+  //     if (popup.open.isAvailable()) {
+  //       // popup.isOpened() -> false
+  //       const promise = popup.open({
+  //         title: "Hello!",
+  //         message: "Here is a test message.",
+  //         buttons: [{ id: "my-id", type: "default", text: "Default text" }],
+  //       });
+  //       // popup.isOpened() -> true
+  //       const buttonId = await promise;
+  //       // popup.isOpened() -> false
+  //     }
+  //   };
 
   return (
     <>
-      <Card style={{ width: "252px" }}>
-        <React.Fragment key=".0">
-          <CardChip style={{ zIndex: "10" }}>
-            <div
-              style={{
-                maxWidth: 60,
-              }}
-            >
-              <InlineButtonsItem mode="bezeled" text="Share">
-                <Icon24Chat />
-              </InlineButtonsItem>
-            </div>
-          </CardChip>
-          <Skeleton visible={!isImageLoaded} withoutAnimation={false}>
-            <img
-              src={movie.posterUrl ? movie.posterUrl : ""}
-              alt={movie.nameRu}
-              onLoad={() => setImageLoaded(true)}
-              onError={() => setImageLoaded(true)}
-            />
-          </Skeleton>
-          <CardCell>
-            <div>
-              <div>{movieName}</div>
-              <div>
-                <IconButton size="m">
-                  <Icon24Cancel />
-                </IconButton>
+      {movie && (
+        <Card style={{ width: "252px" }}>
+          <React.Fragment key=".0">
+            <CardChip style={{ zIndex: "10" }}>
+              <div
+                style={{
+                  maxWidth: 60,
+                }}
+              >
+                <InlineButtonsItem mode="bezeled" text="Share">
+                  <Icon24Chat />
+                </InlineButtonsItem>
               </div>
-            </div>
-          </CardCell>
-        </React.Fragment>
-      </Card>
+            </CardChip>
+            <Skeleton visible={!isImageLoaded} withoutAnimation={false}>
+              <img
+                src={movie.posterUrl ? movie.posterUrl : ""}
+                alt={movie.nameRu}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageLoaded(true)}
+              />
+            </Skeleton>
+            <CardCell>
+              <div>
+                <div>{movieName}</div>
+                <div>
+                  <IconButton size="m">
+                    <Icon24Cancel />
+                  </IconButton>
+                </div>
+              </div>
+            </CardCell>
+          </React.Fragment>
+        </Card>
+      )}
     </>
   );
 };

@@ -1,8 +1,14 @@
-// This file contains all translations for the application
-
 const translations = {
   en: {
     translation: {
+      loadingPhrases: [
+        "Searching for the best movies...",
+        "Fetching the latest releases...",
+        "Finding your next favorite film...",
+        "Loading your movie suggestions...",
+        "Gathering critically acclaimed titles...",
+        "Exploring hidden gems just for you...",
+      ],
       start: "Start",
       settings: "Settings",
       appLang: "App Language",
@@ -17,6 +23,7 @@ const translations = {
       all: "All",
       toHome: "To Home",
       loadMore: "Load More",
+      likedMoviesNotFound: "Liked Movies Not Found",
       filterGenres: [
         { text: "All", value: null },
         { text: "Action", value: 11 },
@@ -55,6 +62,14 @@ const translations = {
   },
   ru: {
     translation: {
+      loadingPhrases: [
+        "Ищем лучшие фильмы...",
+        "Получаем последние релизы...",
+        "Находим ваш следующий любимый фильм...",
+        "Загружаем ваши предложения по фильмам...",
+        "Собираем critically acclaimed titles...",
+        "Исследуем скрытые жемчужины только для вас...",
+      ],
       start: "Старт",
       settings: "Настройки",
       appLang: "Язык приложения",
@@ -69,6 +84,7 @@ const translations = {
       all: "Все",
       toHome: "На Главную",
       loadMore: "Загрузить Еще",
+      likedMoviesNotFound: "Понравившиеся фильмы не найдены",
       filterGenres: [
         { text: "Все", value: null },
         { text: "Боевик", value: 11 },
