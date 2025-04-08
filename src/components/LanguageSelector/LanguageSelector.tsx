@@ -19,6 +19,7 @@ const LanguageSelector: FC = () => {
 
   return (
     <Select
+      style={{ width: "100%" }}
       header={t("appLang")}
       onChange={handleLanguageChange}
       defaultValue={i18n.language}

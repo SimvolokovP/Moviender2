@@ -6,7 +6,7 @@ import {
 } from "@telegram-apps/telegram-ui";
 import { Icon20QuestionMark } from "@telegram-apps/telegram-ui/dist/icons/20/question_mark";
 import { FC, useState } from "react";
-import { IMovie, IOneMovie } from "../../models/IMovie";
+import { IOneMovie } from "../../models/IMovie";
 import { MoviesService } from "../../api/moviesService";
 
 interface DescrModalProps {

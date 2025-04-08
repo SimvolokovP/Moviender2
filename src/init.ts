@@ -18,7 +18,9 @@ import {
   cloudStorage,
   backButton,
   miniApp,
+  settingsButton,
 } from "@telegram-apps/sdk-react";
+
 
 export async function init(options: {
   debug: boolean;
@@ -67,6 +69,10 @@ export async function init(options: {
     throw new Error("ERR_NOT_SUPPORTED");
   }
 
+  if (!settingsButton.isSupported() || !miniApp.isSupported()) {
+    throw new Error("ERR_NOT_SUPPORTED");
+  }
+
   if (!swipeBehavior.isSupported() || !swipeBehavior.isSupported()) {
     throw new Error("ERR_NOT_SUPPORTED");
   }
@@ -76,6 +82,8 @@ export async function init(options: {
   console.log("cloud storage is " + cloudStorage.isSupported());
 
   mountBackButton.ifAvailable();
+  settingsButton.mount();
+
   restoreInitData();
   await Promise.all([
     mountMiniApp.isAvailable() &&
