@@ -20,7 +20,7 @@ const MovieCard: FC<MovieCardProps> = ({
   const [isImageLoaded, setImageLoaded] = useState(false);
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
-  const { addMovie } = useLikedMoviesStore();
+  const { addMovie, likedMovies } = useLikedMoviesStore();
 
   const movieName = useMovieName(movie);
 
@@ -38,6 +38,7 @@ const MovieCard: FC<MovieCardProps> = ({
     }
 
     if (currentPos > 30) {
+      console.log(likedMovies);
       addMovie(movie);
     }
   };
