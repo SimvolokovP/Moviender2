@@ -1,47 +1,92 @@
 import {
-  backButton,
-  viewport,
-  miniApp,
-  initData,
+  setDebug,
+  mountBackButton,
+  restoreInitData,
   init as initSDK,
+  mountMiniApp,
+  bindThemeParamsCssVars,
+  mountViewport,
+  bindViewportCssVars,
+  mockTelegramEnv,
+  type ThemeParams,
+  themeParamsState,
+  retrieveLaunchParams,
+  emitEvent,
+  expandViewport,
+  disableVerticalSwipes,
   swipeBehavior,
-  settingsButton,
+  cloudStorage,
+  backButton,
+  miniApp,
 } from "@telegram-apps/sdk-react";
-import { useNavigate } from "react-router-dom";
 
-export function init(): void {
+export async function init(options: {
+  debug: boolean;
+  eruda: boolean;
+  mockForMacOS: boolean;
+}): Promise<void> {
+  setDebug(options.debug);
   initSDK();
 
-  const navigate = useNavigate();
+  //   options.eruda &&
+  //     void import("eruda").then(({ default: eruda }) => {
+  //       eruda.init();
+  //       eruda.position({ x: window.innerWidth - 50, y: 0 });
+  //     });
+
+  if (options.mockForMacOS) {
+    let firstThemeSent = false;
+    mockTelegramEnv({
+      onEvent(event, next) {
+        if (event[0] === "web_app_request_theme") {
+          let tp: ThemeParams = {};
+          if (firstThemeSent) {
+            tp = themeParamsState();
+          } else {
+            firstThemeSent = true;
+            tp ||= retrieveLaunchParams().tgWebAppThemeParams;
+          }
+          return emitEvent("theme_changed", { theme_params: tp });
+        }
+
+        if (event[0] === "web_app_request_safe_area") {
+          return emitEvent("safe_area_changed", {
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+          });
+        }
+
+        next();
+      },
+    });
+  }
 
   if (!backButton.isSupported() || !miniApp.isSupported()) {
     throw new Error("ERR_NOT_SUPPORTED");
   }
 
-  if (!settingsButton.isSupported() || !miniApp.isSupported()) {
+  if (!swipeBehavior.isSupported() || !swipeBehavior.isSupported()) {
     throw new Error("ERR_NOT_SUPPORTED");
   }
 
-  backButton.mount();
-  initData.restore();
+  swipeBehavior.mount();
 
-  settingsButton.mount();
-  settingsButton.show();
-  settingsButton.onClick(() => navigate("/settings"));
+  console.log("cloud storage is " + cloudStorage.isSupported());
 
-  void viewport
-    .mount()
-    .catch((e) => {
-      console.error("Something went wrong mounting the viewport", e);
-    })
-    .then(() => {
-      viewport.bindCssVars();
-      viewport.expand();
-
-      if (swipeBehavior.mount.isAvailable()) {
-        swipeBehavior.mount();
-        swipeBehavior.isMounted();
-        swipeBehavior.disableVertical();
-      }
-    });
+  mountBackButton.ifAvailable();
+  restoreInitData();
+  await Promise.all([
+    mountMiniApp.isAvailable() &&
+      mountMiniApp().then(() => {
+        bindThemeParamsCssVars();
+      }),
+    mountViewport.isAvailable() &&
+      mountViewport().then(() => {
+        bindViewportCssVars();
+        expandViewport();
+        swipeBehavior.isMounted() && disableVerticalSwipes();
+      }),
+  ]);
 }

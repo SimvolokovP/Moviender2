@@ -7,9 +7,12 @@ import useTg from "../../hooks/useTg";
 import { getUsername } from "../../helpers/getUsername";
 import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavigation";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const MainPage = () => {
   const { user } = useTg();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     console.log(user);
@@ -21,7 +24,7 @@ const MainPage = () => {
         <div className="page">
           {user && (
             <div className="text-[var(--tgui--accent_text_color)] uppercase">
-              hi, {getUsername(user)}
+              {t("hi")}, {getUsername(user)}
             </div>
           )}
           {/* <Divider
@@ -39,10 +42,10 @@ const MainPage = () => {
           </div>
           <div className="flex gap-2 flex-col">
             <Link to={"/movies"} className="w-full">
-              <Button>Find movies</Button>
+              <Button>{t("findMovies")}</Button>
             </Link>
             <Link to={"/my"} className="w-full">
-              <Button style={{ width: "100%" }}>My</Button>
+              <Button style={{ width: "100%" }}>{t("myMovies")}</Button>
             </Link>
           </div>
         </div>

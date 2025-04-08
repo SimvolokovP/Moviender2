@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import FiltersTab from "../../components/FiltersTab/FiltersTab";
-import { filterItems } from "../../helpers/filterItems";
 import useFiltersStore from "../../store/useFiltersStore";
 import StepControl from "../../components/StepControl/StepControl";
 import { Steps } from "@telegram-apps/telegram-ui";
 import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
 import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavigation";
+import { useFilterItems } from "../../helpers/filterItems";
 
 const MoviesPage = () => {
   const [step, setStep] = useState(1);
+
+  const { filterItems } = useFilterItems();
+
   const {
     country,
     genre,

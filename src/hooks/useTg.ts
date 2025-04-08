@@ -1,14 +1,15 @@
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
-import { useMemo } from "react";
 
 const useTg = () => {
-  const lp = useMemo(() => retrieveLaunchParams(), []);
+  const lp = retrieveLaunchParams();
 
   const user = lp.tgWebAppData?.user;
 
+  const userLang = user?.language_code;
+
   const platofrm = lp.tgWebAppPlatform;
 
-  return { user, platofrm };
+  return { user, platofrm, userLang };
 };
 
 export default useTg;

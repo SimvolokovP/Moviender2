@@ -3,7 +3,8 @@ import { IMovie } from "../../models/IMovie";
 import { FC, useState } from "react";
 import useLikedMoviesStore from "../../store/useLikedMovies";
 import DescrModal from "../DescrModal/DescrModal";
-import {  Skeleton } from "@telegram-apps/telegram-ui";
+import { Skeleton } from "@telegram-apps/telegram-ui";
+import useMovieName from "../../hooks/useMovieName";
 
 interface MovieCardProps {
   movie: IMovie;
@@ -20,6 +21,8 @@ const MovieCard: FC<MovieCardProps> = ({
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
   const { addMovie } = useLikedMoviesStore();
+
+  const movieName = useMovieName(movie);
 
   const isFront =
     movie?.kinopoiskId === targetMovies[targetMovies.length - 1]?.kinopoiskId;
@@ -44,7 +47,7 @@ const MovieCard: FC<MovieCardProps> = ({
       {isFront && (
         <div className="flex items-center gap-2 text-center flex-wrap justify-center">
           <div className="uppercase text-base font-semibold text-[var(--tgui--accent_text_color)]">
-            {movie?.nameOriginal}
+            {movieName}
           </div>
           <DescrModal movieId={movie.kinopoiskId} />
         </div>

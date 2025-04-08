@@ -5,9 +5,9 @@ import {
   Spinner,
 } from "@telegram-apps/telegram-ui";
 import { Icon20QuestionMark } from "@telegram-apps/telegram-ui/dist/icons/20/question_mark";
-import { FC, useEffect, useState } from "react";
-import { useFetchOneMovie } from "../../hooks/useFetchOneMovie";
-import { IOneMovie } from "../../models/IMovie";
+import { FC, useState } from "react";
+import { IMovie, IOneMovie } from "../../models/IMovie";
+import { MoviesService } from "../../api/moviesService";
 
 interface DescrModalProps {
   movieId: number;
@@ -16,13 +16,29 @@ interface DescrModalProps {
 const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
   const [selectedMovie, setSelectedMovie] = useState<IOneMovie | null>(null);
 
-  const { fetchedMovie, error, isLoading } = useFetchOneMovie(movieId);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchedMovie.then((m) => {
-      setSelectedMovie(m);
-    });
-  }, [fetchedMovie]);
+  const fetchMovie = async () => {
+    try {
+      console.log("FETCH");
+      setIsLoading(true);
+      if (movieId) {
+        const movie = await MoviesService.getMovieById(movieId);
+        console.log(movie);
+
+        setSelectedMovie(movie);
+      } else {
+        return null;
+      }
+    } catch (error: any) {
+      console.warn(error);
+      setError(error);
+      throw "error";
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Modal
@@ -30,7 +46,7 @@ const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
       aria-describedby={undefined}
       header={<Modal.Header />}
       trigger={
-        <IconButton size="s">
+        <IconButton onClick={fetchMovie} size="s">
           <Icon20QuestionMark />
         </IconButton>
       }

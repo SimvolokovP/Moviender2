@@ -1,24 +1,45 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import "@telegram-apps/telegram-ui/dist/styles.css";
+import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
+
 import "./index.css";
-import App from "./App.tsx";
+import "./mockEnv.ts";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoot } from "@telegram-apps/telegram-ui";
-
-import { setBackgroundAsSecondary } from "./helpers/setBackgroundAsSecondary";
+import App from "./App.tsx";
 import { init } from "./init.ts";
+import "./i18n";
 
-setBackgroundAsSecondary();
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 
-init();
+const startApp = async () => {
+  try {
+    const launchParams = retrieveLaunchParams();
+    const { tgWebAppPlatform: platform } = launchParams;
+    const debug =
+      (launchParams.tgWebAppStartParam || "").includes("platformer_debug") ||
+      import.meta.env.DEV;
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter basename="/Moviender2">
-      <AppRoot>
-        <App />
-      </AppRoot>
-    </BrowserRouter>
-  </StrictMode>
-);
+    await init({
+      debug,
+      eruda: debug && ["ios", "android"].includes(platform),
+      mockForMacOS: platform === "macos",
+    });
+
+    root.render(
+      <StrictMode>
+        <BrowserRouter basename="/Moviender2">
+          <AppRoot>
+            <App />
+          </AppRoot>
+        </BrowserRouter>
+      </StrictMode>
+    );
+  } catch (e) {
+    console.error("Error during initialization:", e);
+    root.render(<div>Error during initialization</div>);
+  }
+};
+
+startApp();
