@@ -11,6 +11,7 @@ interface LikedMoviesState {
   addMovie: (movie: IMovie) => Promise<void>;
   loadSavedMovies: () => Promise<void>;
   setLikedMovies: (movies: IMovie[]) => Promise<void>;
+  removeMovie: (movie: IMovie) => Promise<void>;
 }
 
 const useLikedMoviesStore = create<LikedMoviesState>()((set) => ({
@@ -38,6 +39,24 @@ const useLikedMoviesStore = create<LikedMoviesState>()((set) => ({
       return { likedMovies: updatedMovies };
     });
   },
+
+  removeMovie: async (movie: IMovie) => {
+    console.log(movie);
+    await set((state) => {
+      const updatedMovies = state.likedMovies.filter(
+        (m) => m.kinopoiskId !== movie.kinopoiskId
+      );
+      console.log("Updated Movies: ", updatedMovies);
+
+      if (cloudStorage.setItem.isAvailable()) {
+        cloudStorage.setItem("likedMovies", JSON.stringify(updatedMovies));
+        console.log("delete.. " + JSON.stringify(updatedMovies));
+      }
+
+      return { likedMovies: updatedMovies };
+    });
+  },
+
   setLikedMovies: async (movies: IMovie[]) => {
     await setCloudStorageItem("likedMovies", JSON.stringify(movies));
     set({ likedMovies: movies });

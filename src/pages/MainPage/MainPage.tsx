@@ -9,6 +9,9 @@ import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavi
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Icon28Archive } from "@telegram-apps/telegram-ui/dist/icons/28/archive";
+import { Icon28AddCircle } from "@telegram-apps/telegram-ui/dist/icons/28/add_circle";
+
 const MainPage = () => {
   const { user } = useTg();
 
@@ -42,10 +45,12 @@ const MainPage = () => {
           </div>
           <div className="flex gap-2 flex-col">
             <Link to={"/movies"} className="w-full">
-              <Button>{t("findMovies")}</Button>
+              <Button after={<Icon28AddCircle />}>{t("findMovies")}</Button>
             </Link>
             <Link to={"/my"} className="w-full">
-              <Button style={{ width: "100%" }}>{t("myMovies")}</Button>
+              <Button after={<Icon28Archive />} style={{ width: "100%" }}>
+                {t("myMovies")}
+              </Button>
             </Link>
           </div>
         </div>
