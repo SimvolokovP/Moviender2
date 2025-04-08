@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AnimatedPage from "../../components/AnimatedPage/AnimatedPage";
 import TelegramNavigation from "../../components/TelegramNavigation/TelegramNavigation";
 import useLikedMoviesStore from "../../store/useLikedMovies";
-import { Button } from "@telegram-apps/telegram-ui";
+
+import LikedMovie from "../../components/LikedMovie/LikedMovie";
+import { Pagination } from "@telegram-apps/telegram-ui";
 
 const CollectionPage = () => {
-  const { likedMovies, loadSavedMovies } = useLikedMoviesStore();
+  const { likedMovies } = useLikedMoviesStore();
+
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     console.log(likedMovies);
@@ -14,16 +18,19 @@ const CollectionPage = () => {
   return (
     <TelegramNavigation isMainPage={false}>
       <AnimatedPage>
-        <div>
-          {likedMovies.map((m) => (
-            <div
-              className="text-[var(--tgui--accent_text_color)]"
-              key={m.kinopoiskId}
-            >
-              {m.nameRu}
-            </div>
-          ))}
-          <Button onClick={() => loadSavedMovies()}>load</Button>
+        <div className="page">
+          <LikedMovie
+            key={likedMovies[page - 1]?.kinopoiskId}
+            movie={likedMovies[page - 1]}
+          />
+          <div className="max-w-sm">
+            <Pagination
+            siblingCount={0}
+              page={page}
+              count={likedMovies.length}
+              onChange={(_, page) => setPage(page)}
+            />
+          </div>
         </div>
       </AnimatedPage>
     </TelegramNavigation>

@@ -64,7 +64,11 @@ const DescrModal: FC<DescrModalProps> = ({ movieId }) => {
         />
       ) : (
         <Placeholder
-          description={selectedMovie?.description}
+          description={
+            selectedMovie?.description
+              ? selectedMovie?.description
+              : "Not description"
+          }
           header={""}
         ></Placeholder>
       )}

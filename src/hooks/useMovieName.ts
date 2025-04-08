@@ -6,23 +6,23 @@ const useMovieName = (movie: IMovie) => {
 
   const getName = () => {
     if (i18n.language === "ru") {
-      if (movie.nameRu && movie.nameRu.trim() !== "") {
-        return movie.nameRu;
+      if (movie?.nameRu && movie?.nameRu.trim() !== "") {
+        return movie?.nameRu;
       }
-      if (movie.nameOriginal && movie.nameOriginal.trim() !== "") {
+      if (movie?.nameOriginal && movie?.nameOriginal.trim() !== "") {
         return movie.nameOriginal;
       }
-      return movie.nameEn;
+      return movie?.nameEn;
     } else if (i18n.language === "en") {
-      if (movie.nameEn && movie.nameEn.trim() !== "") {
-        return movie.nameEn;
+      if (movie?.nameEn && movie?.nameEn.trim() !== "") {
+        return movie?.nameEn;
       }
-      if (movie.nameOriginal && movie.nameOriginal.trim() !== "") {
-        return movie.nameOriginal;
+      if (movie?.nameOriginal && movie?.nameOriginal.trim() !== "") {
+        return movie?.nameOriginal;
       }
-      return movie.nameRu;
+      return movie?.nameRu;
     }
-    return movie.nameOriginal;
+    return movie?.nameOriginal;
   };
 
   return getName();

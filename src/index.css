@@ -13,7 +13,7 @@
 html {
   touch-action: none;
   height: 100lvh;
-  overflow: hidden
+  overflow: hidden;
 }
 
 body {
@@ -81,4 +81,12 @@ body {
 
 .tgui-97f2df57786b02dc:before {
   background-color: #f4f4f7;
+}
+
+.tgui-b8b077d7e3491b30 {
+  background-color: transparent !important;
+}
+
+.tgui-38580a5c868cecc4 {
+  gap: 1px;
 }
